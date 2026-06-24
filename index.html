@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Al Rafi Aurnob — Assistant Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0D1B2A;
+      --slate:   #1E3A5F;
+      --steel:   #2E6DA4;
+      --gold:    #C9963A;
+      --cream:   #F5F0E8;
+      --white:   #FFFFFF;
+      --muted:   #6B7B8E;
+      --border:  #D6DDE6;
+      --section-gap: 96px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--navy);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13,27,42,0.96);
+      backdrop-filter: blur(12px);
+      padding: 0 48px;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--gold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 13px;
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex; align-items: center;
+      padding: 100px 48px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -120px; right: -80px;
+      width: 520px; height: 520px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,109,164,0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 60px; left: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,150,58,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+    }
+    .hero-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(42px, 5vw, 68px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 8px;
+    }
+    .hero-name span { color: var(--gold); }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.55);
+      font-style: italic;
+      margin-bottom: 28px;
+    }
+    .hero-bio {
+      font-size: 15px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.8;
+      max-width: 440px;
+      margin-bottom: 36px;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--gold);
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      transition: opacity .2s, transform .2s;
+    }
+    .hero-cta:hover { opacity: 0.88; transform: translateY(-2px); }
+    .hero-stats {
+      display: flex; flex-direction: column; gap: 24px;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 24px 28px;
+      transition: border-color .3s;
+    }
+    .stat-card:hover { border-color: var(--gold); }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 4px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: var(--section-gap) 48px; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-header { margin-bottom: 56px; }
+    .section-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--steel);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.2;
+    }
+    .divider {
+      width: 56px; height: 3px;
+      background: var(--gold);
+      margin-top: 14px;
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--white); }
+    .edu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .edu-card {
+      border: 1px solid var(--border);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow .3s, transform .3s;
+    }
+    .edu-card:hover { box-shadow: 0 12px 40px rgba(13,27,42,0.1); transform: translateY(-4px); }
+    .edu-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--gold);
+    }
+    .edu-degree {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 6px;
+    }
+    .edu-institution {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--steel);
+      margin-bottom: 10px;
+    }
+    .edu-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--gold);
+      margin-bottom: 12px;
+      letter-spacing: 0.05em;
+    }
+    .edu-desc { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+
+    /* ── EXPERIENCE ── */
+    #experience { background: var(--cream); }
+    .exp-timeline { display: flex; flex-direction: column; gap: 0; }
+    .exp-item {
+      display: grid; grid-template-columns: 200px 1fr;
+      gap: 0 48px;
+      padding: 36px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-period {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      padding-top: 4px;
+    }
+    .exp-present {
+      display: inline-block;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+    .exp-role {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 4px;
+    }
+    .exp-company {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--steel);
+      margin-bottom: 12px;
+    }
+    .exp-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 14px; }
+    .exp-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .exp-tag {
+      font-size: 11px;
+      font-family: 'DM Mono', monospace;
+      color: var(--steel);
+      border: 1px solid var(--steel);
+      padding: 3px 10px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--navy); }
+    #skills .section-eyebrow { color: rgba(201,150,58,0.8); }
+    #skills .section-title { color: var(--white); }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    .skill-group-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+    }
+    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .skill-item {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .skill-name { font-size: 14px; color: rgba(255,255,255,0.8); }
+    .skill-bar-wrap {
+      width: 120px; height: 3px;
+      background: rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .skill-bar {
+      position: absolute; top: 0; left: 0; height: 100%;
+      background: var(--gold);
+      transition: width 1.2s ease;
+    }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--white); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+    .contact-intro {
+      font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 32px;
+    }
+    .contact-item {
+      display: flex; align-items: flex-start; gap: 16px;
+      margin-bottom: 20px;
+    }
+    .contact-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .contact-detail-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+    .contact-detail-value { font-size: 14px; color: var(--navy); font-weight: 500; }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-field input, .form-field textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: var(--cream);
+      padding: 14px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--navy);
+      outline: none;
+      transition: border-color .2s;
+      resize: none;
+    }
+    .form-field input:focus, .form-field textarea:focus { border-color: var(--steel); }
+    .form-field textarea { height: 130px; }
+    .form-btn {
+      align-self: flex-start;
+      background: var(--navy);
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .form-btn:hover { background: var(--slate); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      padding: 32px 48px;
+      text-align: center;
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+    }
+    footer span { color: var(--gold); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 880px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      section { padding: 64px 24px; }
+      .hero { padding: 100px 24px 64px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-stats { flex-direction: row; flex-wrap: wrap; }
+      .stat-card { flex: 1 1 140px; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 8px; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero-name { font-size: 38px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .skill-bar { transition: none; }
+    }
+
+    /* scroll reveal */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Al Rafi Aurnob</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="about">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Professional Portfolio</div>
+      <h1 class="hero-name">Al Rafi<br/><span>Aurnob</span></h1>
+      <p class="hero-title">Assistant Manager</p>
+      <p class="hero-bio">
+        A results-driven management professional with a strong foundation in operations, team leadership, and strategic coordination. Committed to driving organisational growth through efficient processes, collaborative teamwork, and data-informed decision-making.
+      </p>
+      <a href="#contact" class="hero-cta">Get In Touch →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Years of Professional Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Organisations Contributed To</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">BBA</div>
+        <div class="stat-label">Business Administration Graduate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Academic Background</div>
+      <h2 class="section-title">Education</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-degree">BBA in Management</div>
+        <div class="edu-institution">University of Dhaka</div>
+        <div class="edu-year">2017 – 2021</div>
+        <div class="edu-desc">Majored in Management with focus on organisational behaviour, human resource management, and strategic business planning. Graduated with distinction.</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-degree">Higher Secondary Certificate (HSC)</div>
+        <div class="edu-institution">Dhaka College, Dhaka</div>
+        <div class="edu-year">2015 – 2017</div>
+        <div class="edu-desc">Completed HSC in the Business Studies group under the Dhaka Board. Achieved GPA 5.00 with strong academic standing in Accounting and Business Studies.</div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-degree">Secondary School Certificate (SSC)</div>
+        <div class="edu-institution">Narayanganj High School, Narayanganj</div>
+        <div class="edu-year">2013 – 2015</div>
+        <div class="edu-desc">Completed SSC in the Business Studies group under the Dhaka Board. Achieved GPA 5.00, demonstrating a strong foundation in commerce and mathematics.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Career Journey</div>
+      <h2 class="section-title">Work Experience</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="exp-timeline">
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-period">2023 — Present</div>
+          <div class="exp-present">Current</div>
+        </div>
+        <div>
+          <div class="exp-role">Assistant Manager</div>
+          <div class="exp-company">Bashundhara Group, Dhaka</div>
+          <div class="exp-desc">Lead daily operational activities across departments, coordinate between senior management and frontline teams, and implement process improvement initiatives. Manage a team of 12 staff, oversee budget allocation, and ensure compliance with company policies. Contribute to strategic planning sessions and quarterly performance reviews.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">Operations</span>
+            <span class="exp-tag">Team Leadership</span>
+            <span class="exp-tag">Budget Management</span>
+            <span class="exp-tag">Strategic Planning</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-period">2021 — 2023</div>
+        </div>
+        <div>
+          <div class="exp-role">Junior Executive — Administration</div>
+          <div class="exp-company">Square Group, Dhaka</div>
+          <div class="exp-desc">Supported administrative operations, managed correspondence, coordinated inter-departmental communication, and maintained records systems. Assisted the senior manager in preparing reports, scheduling, and vendor coordination. Recognised as Employee of the Quarter in 2022.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">Administration</span>
+            <span class="exp-tag">Coordination</span>
+            <span class="exp-tag">Reporting</span>
+            <span class="exp-tag">Vendor Management</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item reveal">
+        <div>
+          <div class="exp-period">2020 — 2021</div>
+        </div>
+        <div>
+          <div class="exp-role">Management Intern</div>
+          <div class="exp-company">Akij Group, Dhaka</div>
+          <div class="exp-desc">Completed a structured internship programme within the HR and Operations division. Assisted in recruitment coordination, employee record maintenance, and operational audits. Gained hands-on exposure to large-scale organisational workflows and corporate governance practices.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">HR Support</span>
+            <span class="exp-tag">Audit</span>
+            <span class="exp-tag">Recruitment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Capabilities</div>
+      <h2 class="section-title">Skills</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="reveal">
+        <div class="skill-group-title">Management</div>
+        <ul class="skill-list">
+          <li class="skill-item"><span class="skill-name">Team Leadership</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="90%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">Operations Management</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="88%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">Strategic Planning</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="80%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">Budget Control</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="78%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">Performance Review</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="82%"></div></div></li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <div class="skill-group-title">Communication & Soft Skills</div>
+        <ul class="skill-list">
+          <li class="skill-item"><span class="skill-name">Stakeholder Communication</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="92%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">Problem Solving</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="88%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">Negotiation</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="75%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">Conflict Resolution</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="80%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">Presentation</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="85%"></div></div></li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <div class="skill-group-title">Tools & Technology</div>
+        <ul class="skill-list">
+          <li class="skill-item"><span class="skill-name">MS Office Suite</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="95%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">ERP Systems</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="72%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">Data Analysis (Excel)</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="80%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">Project Management Tools</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="74%"></div></div></li>
+          <li class="skill-item"><span class="skill-name">Business Reporting</span><div class="skill-bar-wrap"><div class="skill-bar" data-width="86%"></div></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="section-eyebrow">Let's Connect</div>
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="divider"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="contact-intro">Open to new opportunities, professional collaborations, and meaningful conversations. Feel free to reach out via the form or the contact details below.</p>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-detail-label">Location</div>
+            <div class="contact-detail-value">Narayanganj, Dhaka, Bangladesh</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <div class="contact-detail-label">Email</div>
+            <div class="contact-detail-value">alrafi.aurnob@email.com</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <div>
+            <div class="contact-detail-label">Phone</div>
+            <div class="contact-detail-value">+880 1700-000000</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">💼</div>
+          <div>
+            <div class="contact-detail-label">LinkedIn</div>
+            <div class="contact-detail-value">linkedin.com/in/alrafiaurnob</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal">
+        <div class="contact-form">
+          <div class="form-field"><input type="text" placeholder="Your Name"/></div>
+          <div class="form-field"><input type="email" placeholder="Your Email"/></div>
+          <div class="form-field"><input type="text" placeholder="Subject"/></div>
+          <div class="form-field"><textarea placeholder="Your message…"></textarea></div>
+          <button class="form-btn">Send Message →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Al Rafi Aurnob</span>. All rights reserved.</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Skill bar animation
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar').forEach(bar => {
+          bar.style.width = bar.dataset.width;
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skills-grid > div').forEach(g => barObserver.observe(g));
+</script>
+</body>
+</html>
